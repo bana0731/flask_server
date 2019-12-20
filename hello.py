@@ -73,15 +73,13 @@ def pong():
 @app.route('/lotto_result/<int:round>')
 def lotto_result(round):
     url = f'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo={round}'
-    result = requests(url).json()
+    result = requests.get(url).json()
 
     winner = []
     for i in range(1,7):
         winner.append(result.get(f'drwtNo{i}'))
         #winner.append(result[f'drwtNo{i}'])    
-     winner.append(result.get('bnusNo'))
+    winner.append(result.get('bnusNo'))
     return json.dumps(winner)
-
-
 
 app.run(debug=True)
